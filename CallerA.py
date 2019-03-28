@@ -43,7 +43,7 @@ For TCP Transport:
 /sipp-3.3/sipp -t t1 -sf uacplivo_tcp.xml -inf uacplivo.csv -m 1 -l 1 trace_err uacplivo_tcp.log phone.plivo.com
 for UDP Transport:
 /sipp-3.3/sipp -sf registerA.xml -inf registerA.csv -m 1 -l 1 trace_err uacplivoReg.log phone.plivo.com
-/sipp-3.3/sipp -sf uacplivo.xml -inf uacplivo.csv -m 1 -l 1 trace_err uacplivo_udp.log phone.plivo.com
+/sipp-3.3/sipp -sf uacplivo_udp.xml -inf uacplivo.csv -m 1 -l 1 trace_err uacplivo_udp.log phone.plivo.com
 """
 a.execute_commands('cd /home/yoursystem/sipp-3.3','pwd','su','password','./sipp -t t1  -sn uac -sf uacplivo.xml -inf basiccall.csv  -m 1 -l 1 -trace_msg Registration.log phone.plivo.com')  
 
