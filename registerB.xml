@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE scenario SYSTEM "sipp.dtd">
+
+<!-- This program is free software; you can redistribute it and/or      -->
+<!-- modify it under the terms of the GNU General Public License as     -->
+<!-- published by the Free Software Foundation; either version 2 of the -->
+<!-- License, or (at your option) any later version.                    -->
+<!--                                                                    -->
+<!-- This program is distributed in the hope that it will be useful,    -->
+<!-- but WITHOUT ANY WARRANTY; without even the implied warranty of     -->
+<!-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      -->
+<!-- GNU General Public License for more details.                       -->
+<!--                                                                    -->
+<!-- You should have received a copy of the GNU General Public License  -->
+<!-- along with this program; if not, write to the                      -->
+<!-- Free Software Foundation, Inc.,                                    -->
+<!-- 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA             -->
+<!--                                                                    -->
+<!--                 Sipp default 'uas' scenario.                       -->
+<!--                                                                    -->
+
+<scenario name="Basic UAS responder">
+  <!-- By adding rrs="true" (Record Route Sets), the route sets         -->
+  <!-- are saved and used for following messages sent. Useful to test   -->
+  <!-- against stateful SIP proxies/B2BUAs.                             -->
+<send retrans="500">
+<![CDATA[
+REGISTER sip:[field1] SIP/2.0
+Via: SIP/2.0/[transport] [local_ip];branch=[branch]
+Max-Forwards: 70
+From: [field3] <sip:[field0]@[field1]>;tag=[call_number]
+To: [field3] <sip:[field0]@[field1]>
+Call-ID: [call_id]
+CSeq: 1 REGISTER
+Contact: [field3] <sip:[field0]@[local_ip]:[local_port];transport=[transport]>
+Expires: 3600
+Allow: INVITE, ACK, CANCEL, BYE, REFER, NOTIFY, MESSAGE, SUBSCRIBE, INFO
+Content-Length: 0
+User-Agent: SIPp
+]]>
+</send>
+
+
+<recv response="401" auth="true" rtd="true">
+</recv>
+
+<send retrans="500">
+<![CDATA[
+REGISTER sip:[field1] SIP/2.0
+Via: SIP/2.0/[transport] [local_ip];branch=[branch]
+Max-Forwards: 70
+From: [field3] <sip:[field0]@[field1]>;tag=[call_number]
+To: [field3] <sip:[field0]@[field1]>
+Call-ID: [call_id]
+CSeq: 2 REGISTER
+Contact: [field3] <sip:[field0]@[local_ip]:[local_port];transport=[transport]>
+Expires: 3600
+Allow: INVITE, ACK, CANCEL, BYE, REFER, NOTIFY, MESSAGE, SUBSCRIBE, INFO
+Content-Length: 0
+User-Agent: SIPp
+[field2]
+]]>
+</send>
+
+
+<recv response="200">
+</recv>
+
+
+</scenario>
